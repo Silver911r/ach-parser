@@ -4,7 +4,7 @@ class ACHFileParser:
     def __init__(self, file_path):
         self.file_path = file_path
         self.records = []
-        self.current_standard_entry_class_code = None  # Add this line
+        self.current_standard_entry_class_code = None
         self.record_type_mappings = {
             'ACK': {'6': AckEntryDetailRecord, '7': AckAddendaRecord},
             'ADV': {'8': AdvBatchControlRecord, '6':AdvDetailEntryRecord},
@@ -14,8 +14,20 @@ class ACHFileParser:
             'CCD': {'6': CcdDetailEntryRecord, '7': CcdAddendaRecord},
             'CIE': {'6': CieEntryDetailRecord, '7': CieAddendaRecord},
             'CTX': {'6': CTXEntryDetailRecord, '7': CTXAddendaRecord},
-            'DNE': {'6': DNEEntryDetail}
-            # Add more mappings here as needed
+            'DNE': {'6': DNEEntryDetail, '7': DNEAddenda},
+            'ENR': {'6': ENREntryDetail, '7': ENRAddenda},
+            'MTE': {'6': MTEEntryDetail, '7': MTEAddenda},
+            'POP': {'6': POPDetailRecord},
+            'POS': {'6': POSEntryDetailRecord, '7': POSAddendaRecord},
+            'PPD': {'6': PPDDetailRecord},
+            'RCK': {'6': RCKDetailRecord},
+            'SHR': {'6': SHREntryDetailRecord, '7': SHRAddendaRecord},
+            'TEL': {'6': TELDetailRecord},
+            'TRC': {'6': TRCEntryDetailRecord},
+            'TRX': {'6': TRXEntryDetailRecord, '7': TRXAddendaRecord},
+            'WEB': {'6': WEBDetailRecord},
+            'XCK': {'6': XCKDetailRecord},
+            'IAT': {'6': IATBatchHeaderRecord}
         }
 
     def parse(self):
@@ -42,8 +54,6 @@ class ACHFileParser:
                 if line[0] == '8':
                     self.current_standard_entry_class_code = None
                 
-
-
         return self.records
 
 
